@@ -1,0 +1,11 @@
+.container {
+  border: 1px solid #3a3a3a;
+}
+
+.available {
+  background-color: rgb(9, 138, 9);
+}
+
+.unavailable {
+  background-color: rgb(189, 14, 14);
+}
