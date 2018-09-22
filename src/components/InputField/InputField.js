@@ -7,7 +7,8 @@ const inputField = (props) => {
   return (
 
     <div>
-      <input type="text" onChange={props.changed} value={props.username} />
+      <input type="text" onChange={props.changed}/>
+      <button type="button" value="Submit">Submit</button>
     </div>
   )
 }
