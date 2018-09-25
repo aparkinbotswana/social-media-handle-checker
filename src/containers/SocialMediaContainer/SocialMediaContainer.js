@@ -40,11 +40,24 @@ let style = null
 
 
 class SocialMediaContainer extends Component {
+
+  // Remember to put this in with COMPONENTDIDMOUNT..... I think. Check that out a little more. Testing for now. 
+  sendRequest = () => {
+    console.log(this.props.username);
+    console.log('HTTP request sent');
+  }
+
   render() {
+    
+// conditionally render styles based on network status response here.
+// remeber to use .map so that it can go through and render all of them.
+    // if () {
+    // } else if () {
+    // }
+
     return (
       <div className={classes.container}>
         <GithubImage style={style} className={classes.available} />
-        <p>{this.props.username}</p>
       </div>
     )
   }

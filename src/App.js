@@ -3,21 +3,15 @@ import SocialMediaContainer from './containers/SocialMediaContainer/SocialMediaC
 import InputField from './components/InputField/InputField'
 
 class App extends Component {
-  // componentDidMount() {
-  //   let myUrl = 'https://bestdogmemes.tumblr.com/';
-  //   const oReq = new XMLHttpRequest();
 
-  //   oReq.addEventListener("load", function () {
-  //     console.log(this.status);
-  //   });
-  //   oReq.open("GET", myUrl);
-  //   oReq.send();
-  // }
-
+  constructor(props) {
+    super(props);
+    this.socialMediaRef = React.createRef();
+  }
 
 
   state = {
-    username: '',
+    username: ''
 
     // usernameAvailability: {
     //   github: {
@@ -56,16 +50,19 @@ class App extends Component {
   }
 
   usernameInput = (event) => {
-    let username = this.username
     this.setState({ username: event.target.value })
-  }
+  };
+
+  handleGetRequest = () => {
+    this.socialMediaRef.current.sendRequest()
+  };
 
   render() {
     return (
       <div>
         <h1>Username Checker</h1>
-        <InputField changed={(event) => this.usernameInput(event)}/>        
-        <SocialMediaContainer username={this.state.username}/>
+        <InputField handleGetRequest={this.handleGetRequest} changed={(event) => this.usernameInput(event)}/>        
+        <SocialMediaContainer username={this.state.username} ref={this.socialMediaRef}/>
       </div>
     )
   }
