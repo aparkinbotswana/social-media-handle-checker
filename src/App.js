@@ -4,14 +4,9 @@ import InputField from './components/InputField/InputField'
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.socialMediaRef = React.createRef();
-  }
-
-
   state = {
-    username: ''
+    username: '',
+    sendRequest: false
 
     // usernameAvailability: {
     //   github: {
@@ -54,7 +49,13 @@ class App extends Component {
   };
 
   handleGetRequest = () => {
-    this.socialMediaRef.current.sendRequest()
+    if (this.state.sendRequest) {
+      this.setState({ sendRequest: false })
+      console.log('set to false');
+    } else {
+      console.log('set to true');
+      this.setState({ sendRequest: true })
+    }
   };
 
   render() {
@@ -62,7 +63,7 @@ class App extends Component {
       <div>
         <h1>Username Checker</h1>
         <InputField handleGetRequest={this.handleGetRequest} changed={(event) => this.usernameInput(event)}/>        
-        <SocialMediaContainer username={this.state.username} ref={this.socialMediaRef}/>
+        <SocialMediaContainer handleGetRequest={this.handleGetRequest} username={this.state.username} sendRequest={this.state.sendRequest} />
       </div>
     )
   }

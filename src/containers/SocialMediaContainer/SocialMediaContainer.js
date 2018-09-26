@@ -41,10 +41,13 @@ let style = null
 
 class SocialMediaContainer extends Component {
 
-  // Remember to put this in with COMPONENTDIDMOUNT..... I think. Check that out a little more. Testing for now. 
-  sendRequest = () => {
-    console.log(this.props.username);
-    console.log('HTTP request sent');
+
+  componentDidUpdate() {
+    if (this.props.sendRequest) {
+      console.log('componentDidUpdate SocialMediaContainer');
+      this.props.handleGetRequest()
+    // executes handleGetRequest again so that state for sendRequest can be set back to false
+    }
   }
 
   render() {
