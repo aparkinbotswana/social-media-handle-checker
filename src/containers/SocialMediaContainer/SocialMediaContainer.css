@@ -4,9 +4,12 @@
   display: flex;
 }
 
+.flex{
+  flex: 1;
+}
+
 .available {
   background-color: rgb(9, 138, 9);
-  flex: 1;
 }
 
 .unavailable {

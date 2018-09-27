@@ -43,24 +43,47 @@ class SocialMediaContainer extends Component {
 
 
   componentDidUpdate() {
+    console.log('componentDidUpdate');
     if (this.props.sendRequest) {
-      console.log('componentDidUpdate SocialMediaContainer');
-      this.props.handleGetRequest()
+      console.log('compDidUpdate within if statement');
+      // const reqListener = () => {
+      //   // console.log(oReq.status);
+      //   // console.log(oReq);
+      // }
+      // const oReq = new XMLHttpRequest();
+      // oReq.addEventListener("load", reqListener);
+      // oReq.open("GET", "https://www.instagram.com/carmen.samdiego/");
+      // // oReq.open("GET", "https://github.com/aparkinbotswana");
+      
+
+      // oReq.send();
+    
+      // this.props.handleGetRequest()
     // executes handleGetRequest again so that state for sendRequest can be set back to false
     }
   }
 
   render() {
+    console.log('render executed!!!!!!!!!!!!!!!!!');
     
-// conditionally render styles based on network status response here.
-// remeber to use .map so that it can go through and render all of them.
-    // if () {
-    // } else if () {
-    // }
+    const imgClass = [classes.flex];
+    let style = null
+
+    if (true) {
+      style = {
+        fill: 'white',
+      }
+      imgClass.push(classes.available)
+    } else if (false) {
+      style = {
+        fill: 'white',
+      }
+      imgClass.push(classes.unavailable)
+    }
 
     return (
       <div className={classes.container}>
-        <GithubImage style={style} className={classes.available} />
+        <GithubImage style={style} className={imgClass.join(' ')} />
       </div>
     )
   }
