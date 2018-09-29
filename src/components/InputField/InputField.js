@@ -3,6 +3,7 @@ import classes from './InputField.css';
 
 
 const inputField = (props) => {
+  // HANDLE SPACES!!!!!!!!
   return (
     <div>
       <input type="text" onChange={props.changed}/>

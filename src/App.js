@@ -51,9 +51,7 @@ class App extends Component {
   handleGetRequest = () => {
     if (this.state.sendRequest) {
       this.setState({ sendRequest: false })
-      console.log('set to false');
     } else {
-      console.log('set to true');
       this.setState({ sendRequest: true })
     }
   };

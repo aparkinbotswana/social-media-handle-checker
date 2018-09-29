@@ -6,16 +6,6 @@ import TumblrImage from '../../assets/tumblr.svg'
 import TwitterImage from '../../assets/twitter.svg'
 
 
-const svgImages = [<GithubImage />, <InstagramImage />, <TumblrImage />, <TwitterImage />]
-let style = null
-// if (true) {
-//   style = {
-//     fill: 'white',
-//   }
-// } else {
-
-// }
-
 // const url = {
 //   github: 'https://github.com/',
 //       // exmple https://github.com/aparkinbotswana
@@ -41,34 +31,47 @@ let style = null
 
 class SocialMediaContainer extends Component {
 
+  state = {
+    availability: {
+      github: null,
+      instagram: null,
+      tumblr: null,
+      twitter: null
+    }
+  }
 
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
+  handleResponse = () => {
+    // console.log('this has been resolved');
+  }
+
+  handleReject = () => {
+    // console.log('this has been rejected');
+  }
+
+  makeGetRequest = (url) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(this.handleResponse());        
+      xhr.onerror = () => reject(this.handleReject());
+      xhr.send();
+    });
+  }
+
+  componentDidUpdate() {  
     if (this.props.sendRequest) {
-      console.log('compDidUpdate within if statement');
-      // const reqListener = () => {
-      //   // console.log(oReq.status);
-      //   // console.log(oReq);
-      // }
-      // const oReq = new XMLHttpRequest();
-      // oReq.addEventListener("load", reqListener);
-      // oReq.open("GET", "https://www.instagram.com/carmen.samdiego/");
-      // // oReq.open("GET", "https://github.com/aparkinbotswana");
-      
+      this.makeGetRequest('https://www.instagram.com/carmen.samdiego/')
+      // this.makeGetRequest('https://github.com/aparkinbotswana')
 
-      // oReq.send();
-    
-      // this.props.handleGetRequest()
-    // executes handleGetRequest again so that state for sendRequest can be set back to false
+      this.props.handleGetRequest()
+      // executes handleGetRequest again so that state for sendRequest can be set back to false
     }
   }
 
   render() {
-    console.log('render executed!!!!!!!!!!!!!!!!!');
     
     const imgClass = [classes.flex];
     let style = null
-
     if (true) {
       style = {
         fill: 'white',
@@ -81,9 +84,13 @@ class SocialMediaContainer extends Component {
       imgClass.push(classes.unavailable)
     }
 
+
     return (
       <div className={classes.container}>
-        <GithubImage style={style} className={imgClass.join(' ')} />
+        <GithubImage className={imgClass.join(' ')} />
+        <InstagramImage className={imgClass.join(' ')} />
+        <TumblrImage className={imgClass.join(' ')} />
+        <TwitterImage className={imgClass.join(' ')} />
       </div>
     )
   }
