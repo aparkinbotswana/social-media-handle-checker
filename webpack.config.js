@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    headers: { "Access-Control-Allow-Origin": "*" }
+  },
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'docs'),

@@ -40,9 +40,8 @@ class SocialMediaContainer extends Component {
     }
   }
 
-  handleResponse = () => {
-    // console.log('this has been resolved');
-  }
+  // handleResponse = () => {
+  // }
 
   handleReject = () => {
     // console.log('this has been rejected');
@@ -52,7 +51,8 @@ class SocialMediaContainer extends Component {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("GET", url);
-      xhr.onload = () => resolve(this.handleResponse());        
+      xhr.onload = () => resolve(console.log(xhr.status)
+);        
       xhr.onerror = () => reject(this.handleReject());
       xhr.send();
     });
@@ -60,8 +60,8 @@ class SocialMediaContainer extends Component {
 
   componentDidUpdate() {  
     if (this.props.sendRequest) {
-      this.makeGetRequest('https://www.instagram.com/carmen.samdiego/')
-      // this.makeGetRequest('https://github.com/aparkinbotswana')
+      // this.makeGetRequest('https://www.instagram.com/carmen.samdiego/')
+      this.makeGetRequest('https://github.com/aparkinbotswana')
 
       this.props.handleGetRequest()
       // executes handleGetRequest again so that state for sendRequest can be set back to false
