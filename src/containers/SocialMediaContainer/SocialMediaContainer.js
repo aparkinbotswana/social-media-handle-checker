@@ -9,35 +9,35 @@ class SocialMediaContainer extends Component {
 
   state = {
     availability: {
-      github: null,
-      instagram: null,
-      twitter: null
+      "https://github.com/": null,
+      "https://twitter.com/": null,
+      "https://www.instagram.com/": null
     }
   }
 
-  handleResponse = (response) => {
-    console.log(response);
-    // this.setState({  })
-
-  }
-
-  handleReject = () => {
-    // console.log('this has been rejected');
-  }
 
   makeGetRequest = (username) => {
+    const handleResponse = (myJson) => {
+      const availability = this.state.availability
+      for (const availabilityKey in availability) {
+        for (const myJsonKey in myJson) {
+          if (myJsonKey === availabilityKey) {
+            this.setState({ [availabilityKey]: myJson[myJsonKey] })
+          }
+        }
+      }
+    }
+
     fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`).then(function (response) {
-      console.log(response.json());
-      return response.json();
+      return response.json(); 
     })
       .then(function (myJson) {
-        console.log(myJson);
+        return handleResponse(myJson)
       });
   }
 
   componentDidUpdate() {  
     if (this.props.sendRequest) {
-      // this.makeGetRequest('https://www.instagram.com/carmen.samdiego/')
       this.makeGetRequest(this.props.username)
       this.props.handleGetRequest()
       // executes handleGetRequest again so that state for sendRequest can be set back to false
