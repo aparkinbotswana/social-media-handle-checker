@@ -19,14 +19,18 @@ class SocialMediaContainer extends Component {
   makeGetRequest = (username) => {
     const handleResponse = (myJson) => {
       const availability = [...this.state.availability]
+      // creating copy of array so we can alter it as need be. 
       availability.map((socialMediaSite) => {
+        // iterate through every object in the array so we can update the key/value pairs based on response from server
         for (const urlKey in socialMediaSite) {
           for (const myJsonKey in myJson) {
             if (myJsonKey === urlKey) {
+              // iterating through key value pair and checking to see if it is the correct key so the correct value is updated
               socialMediaSite[urlKey] = myJson[myJsonKey];
             }
           }
           this.setState({ availability: availability })
+          //setting the state of original datastructure to the altered version that we defined and altered above.
         }
       })
     }
