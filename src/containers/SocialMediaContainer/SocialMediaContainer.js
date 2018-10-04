@@ -8,32 +8,40 @@ import TwitterImage from '../../assets/twitter.svg'
 class SocialMediaContainer extends Component {
 
   state = {
-    availability: {
-      "https://github.com/": null,
-      "https://twitter.com/": null,
-      "https://www.instagram.com/": null
-    }
+    availability: [
+      { "https://github.com/": null },
+      { "https://twitter.com/": null },
+      { "https://www.instagram.com/": null }
+    ]
   }
 
 
   makeGetRequest = (username) => {
     const handleResponse = (myJson) => {
-      const availability = this.state.availability
-      for (const availabilityKey in availability) {
-        for (const myJsonKey in myJson) {
-          if (myJsonKey === availabilityKey) {
-            this.setState({ [availabilityKey]: myJson[myJsonKey] })
+      const availability = [...this.state.availability]
+      availability.map((socialMediaSite) => {
+        for (const urlKey in socialMediaSite) {
+          for (const myJsonKey in myJson) {
+            if (myJsonKey === urlKey) {
+              socialMediaSite[urlKey] = myJson[myJsonKey];
+            }
           }
+          this.setState({ availability: availability })
         }
-      }
+      })
+    }
+
+    const alterClass = () => {
+      console.log(this.state.availability);
     }
 
     fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`).then(function (response) {
       return response.json(); 
-    })
-      .then(function (myJson) {
-        return handleResponse(myJson)
-      });
+    }).then(function (myJson) { 
+      return handleResponse(myJson) 
+    }).then(function () {
+      return alterClass()
+    });
   }
 
   componentDidUpdate() {  
@@ -63,9 +71,9 @@ class SocialMediaContainer extends Component {
 
     return (
       <div className={classes.container}>
-        <GithubImage className={imgClass.join(' ')} />
-        <InstagramImage className={imgClass.join(' ')} />
-        <TwitterImage className={imgClass.join(' ')} />
+        <GithubImage key="github" className={imgClass.join(' ')} />
+        <InstagramImage key="instagram" className={imgClass.join(' ')} />
+        <TwitterImage key="twitter" className={imgClass.join(' ')} />
       </div>
     )
   }
