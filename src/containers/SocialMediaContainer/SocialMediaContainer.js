@@ -8,19 +8,20 @@ import TwitterImage from '../../assets/twitter.svg'
 class SocialMediaContainer extends Component {
 
   state = {
-    availability: [
-      { "https://github.com/": null },
-      { "https://twitter.com/": null },
-      { "https://www.instagram.com/": null }
+    socialMediaSites: [
+      { "https://github.com/": null, tag: GithubImage, id: "github" },
+      { "https://twitter.com/": null, tag: TwitterImage, id: "twitter" },
+      { "https://www.instagram.com/": null, tag: InstagramImage, id: "instagram" }
     ]
   }
 
 
   makeGetRequest = (username) => {
+
     const handleResponse = (myJson) => {
-      const availability = [...this.state.availability]
+      const socialMediaSites = [...this.state.socialMediaSites]
       // creating copy of array so we can alter it as need be. 
-      availability.map((socialMediaSite) => {
+      socialMediaSites.map((socialMediaSite) => {
         // iterate through every object in the array so we can update the key/value pairs based on response from server
         for (const urlKey in socialMediaSite) {
           for (const myJsonKey in myJson) {
@@ -29,23 +30,17 @@ class SocialMediaContainer extends Component {
               socialMediaSite[urlKey] = myJson[myJsonKey];
             }
           }
-          this.setState({ availability: availability })
+          this.setState({ socialMediaSites: socialMediaSites })
           //setting the state of original datastructure to the altered version that we defined and altered above.
         }
       })
-    }
-
-    const alterClass = () => {
-      console.log(this.state.availability);
     }
 
     fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`).then(function (response) {
       return response.json(); 
     }).then(function (myJson) { 
       return handleResponse(myJson) 
-    }).then(function () {
-      return alterClass()
-    });
+    })
   }
 
   componentDidUpdate() {  
@@ -57,27 +52,25 @@ class SocialMediaContainer extends Component {
   }
 
   render() {
-    
-    const imgClass = [classes.flex];
+    let imgClass = [classes.flex];
     let style = null
-    if (true) {
-      style = {
-        fill: 'white',
+    
+    this.state.socialMediaSites.map((socialMediaSite) => {
+      if (this.state.socialMediaSites === 1) {
+        imgClass = [classes.flex, classes.available];
+      } else if (this.state.socialMediaSites > 1) {
+        imgClass = [classes.flex, classes.unavailable];
       }
-      imgClass.push(classes.available)
-    } else if (false) {
-      style = {
-        fill: 'white',
-      }
-      imgClass.push(classes.unavailable)
+    })
+    for (const key of this.state.socialMediaSites) {
+      console.log(key);
     }
-
 
     return (
       <div className={classes.container}>
-        <GithubImage key="github" className={imgClass.join(' ')} />
-        <InstagramImage key="instagram" className={imgClass.join(' ')} />
-        <TwitterImage key="twitter" className={imgClass.join(' ')} />
+        {this.state.socialMediaSites.map((socialMediaSite) => {
+          return <img src={socialMediaSite.tag} key={socialMediaSite.id} className={imgClass.join(' ')} />
+        })}
       </div>
     )
   }
