@@ -9,25 +9,25 @@ class SocialMediaContainer extends Component {
 
   state = {
     socialMediaSites: [
-      { "https://github.com/": null, tag: GithubImage, id: "github" },
-      { "https://twitter.com/": null, tag: TwitterImage, id: "twitter" },
-      { "https://www.instagram.com/": null, tag: InstagramImage, id: "instagram" }
+      { website: "https://github.com/", availability: null, tag: GithubImage, id: "github", className: [classes.flex] },
+      { website: "https://twitter.com/", availability: null, tag: TwitterImage, id: "twitter", className: [classes.flex] },
+      { website: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "instagram", className: [classes.flex] }
     ]
   }
 
 
   makeGetRequest = (username) => {
 
-    const handleResponse = (myJson) => {
+    const updateAvailability = (myJson) => {
       const socialMediaSites = [...this.state.socialMediaSites]
       // creating copy of array so we can alter it as need be. 
       socialMediaSites.map((socialMediaSite) => {
         // iterate through every object in the array so we can update the key/value pairs based on response from server
-        for (const urlKey in socialMediaSite) {
+        for (const url in socialMediaSite) {
           for (const myJsonKey in myJson) {
-            if (myJsonKey === urlKey) {
+            if (myJsonKey === socialMediaSite[url]) {
               // iterating through key value pair and checking to see if it is the correct key so the correct value is updated
-              socialMediaSite[urlKey] = myJson[myJsonKey];
+              socialMediaSite.availability = myJson[myJsonKey];
             }
           }
           this.setState({ socialMediaSites: socialMediaSites })
@@ -36,10 +36,27 @@ class SocialMediaContainer extends Component {
       })
     }
 
+    const updateClass = () => {
+      const socialMediaSites = [...this.state.socialMediaSites]
+      socialMediaSites.map((socialMediaSite) => {
+        if (socialMediaSite.availability === true) {
+          socialMediaSite.className = [classes.flex, classes.available];
+        } else if (socialMediaSite.availability === false) {
+          socialMediaSite.className = [classes.flex, classes.unavailable];
+        }
+        // conditionally applying classes to each component based on response
+        this.setState({ socialMediaSites: socialMediaSites })
+        //setting the state of original datastructure to the altered version that we defined and altered above.
+      })
+    }
+
+
     fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`).then(function (response) {
       return response.json(); 
     }).then(function (myJson) { 
-      return handleResponse(myJson) 
+      return updateAvailability(myJson) 
+    }).then(function () {
+      return updateClass()
     })
   }
 
@@ -50,26 +67,23 @@ class SocialMediaContainer extends Component {
       // executes handleGetRequest again so that state for sendRequest can be set back to false
     }
   }
+  
 
   render() {
-    let imgClass = [classes.flex];
-    let style = null
-    
-    this.state.socialMediaSites.map((socialMediaSite) => {
-      if (this.state.socialMediaSites === 1) {
+    let imgClass = [classes.flex]
+    for (const key of this.state.socialMediaSites) {
+      // console.log(key.availability);
+      if (key.availability === true) {
         imgClass = [classes.flex, classes.available];
-      } else if (this.state.socialMediaSites > 1) {
+      } else if (key.availability === false) {
         imgClass = [classes.flex, classes.unavailable];
       }
-    })
-    for (const key of this.state.socialMediaSites) {
-      console.log(key);
     }
 
     return (
       <div className={classes.container}>
         {this.state.socialMediaSites.map((socialMediaSite) => {
-          return <img src={socialMediaSite.tag} key={socialMediaSite.id} className={imgClass.join(' ')} />
+          return <img src={socialMediaSite.tag} key={socialMediaSite.id} className={socialMediaSite.className.join(' ')} />
         })}
       </div>
     )
