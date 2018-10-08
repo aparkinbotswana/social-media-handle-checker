@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SocialMediaContainer from './containers/SocialMediaContainer/SocialMediaContainer'
+import LogoContainer from './containers/LogoContainer/LogoContainer'
 import InputField from './components/InputField/InputField'
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
       <div>
         <h1>Username Checker</h1>
         <InputField handleGetRequest={this.handleGetRequest} changed={(event) => this.usernameInput(event)}/>        
-        <SocialMediaContainer handleGetRequest={this.handleGetRequest} username={this.state.username} sendRequest={this.state.sendRequest} />
+        <LogoContainer handleGetRequest={this.handleGetRequest} username={this.state.username} sendRequest={this.state.sendRequest} />
       </div>
     )
   }

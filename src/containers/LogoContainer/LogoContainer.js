@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import classes from './SocialMediaContainer.css'
+import classes from './LogoContainer.css'
 import GithubImage from '../../assets/github.svg'
 import InstagramImage from '../../assets/instagram.svg'
 import TwitterImage from '../../assets/twitter.svg'
 
 
-class SocialMediaContainer extends Component {
+class LogoContainer extends Component {
 
   state = {
     socialMediaSites: [
@@ -90,4 +90,4 @@ class SocialMediaContainer extends Component {
   }
 }
 
-export default SocialMediaContainer
+export default LogoContainer
