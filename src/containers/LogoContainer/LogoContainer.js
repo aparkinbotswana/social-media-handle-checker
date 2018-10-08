@@ -3,6 +3,7 @@ import classes from './LogoContainer.css'
 import GithubImage from '../../assets/github.svg'
 import InstagramImage from '../../assets/instagram.svg'
 import TwitterImage from '../../assets/twitter.svg'
+import classNames from 'classnames';
 
 
 class LogoContainer extends Component {
@@ -73,7 +74,7 @@ class LogoContainer extends Component {
     return (
       <div className={classes.container}>
         {this.state.websites.map((website) => {
-          return <img src={website.tag} key={website.id} className={website.className.join(' ')} />
+          return <img src={website.tag} key={website.id} className={classNames(website.className)} />
         })}
       </div>
     )
