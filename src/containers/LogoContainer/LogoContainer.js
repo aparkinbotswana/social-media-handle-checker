@@ -8,10 +8,10 @@ import TwitterImage from '../../assets/twitter.svg'
 class LogoContainer extends Component {
 
   state = {
-    socialMediaSites: [
-      { website: "https://github.com/", availability: null, tag: GithubImage, id: "github", className: [classes.flex] },
-      { website: "https://twitter.com/", availability: null, tag: TwitterImage, id: "twitter", className: [classes.flex] },
-      { website: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "instagram", className: [classes.flex] }
+    websites: [
+      { url: "https://github.com/", availability: null, tag: GithubImage, id: "github", className: [classes.flex] },
+      { url: "https://twitter.com/", availability: null, tag: TwitterImage, id: "twitter", className: [classes.flex] },
+      { url: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "instagram", className: [classes.flex] }
     ]
   }
 
@@ -19,33 +19,33 @@ class LogoContainer extends Component {
   makeGetRequest = (username) => {
 
     const updateAvailability = (myJson) => {
-      const socialMediaSites = [...this.state.socialMediaSites]
+      const websites = [...this.state.websites]
       // creating copy of array so we can alter it as need be. 
-      socialMediaSites.map((socialMediaSite) => {
+      websites.map((website) => {
         // iterate through every object in the array so we can update the key/value pairs based on response from server
-        for (const url in socialMediaSite) {
+        for (const key in website) {
           for (const myJsonKey in myJson) {
-            if (myJsonKey === socialMediaSite[url]) {
+            if (myJsonKey === website[key]) {
               // iterating through key value pair and checking to see if it is the correct key so the correct value is updated
-              socialMediaSite.availability = myJson[myJsonKey];
+              website.availability = myJson[myJsonKey];
             }
           }
-          this.setState({ socialMediaSites: socialMediaSites })
+          this.setState({ websites: websites })
           //setting the state of original datastructure to the altered version that we defined and altered above.
         }
       })
     }
 
     const updateClass = () => {
-      const socialMediaSites = [...this.state.socialMediaSites]
-      socialMediaSites.map((socialMediaSite) => {
-        if (socialMediaSite.availability === true) {
-          socialMediaSite.className = [classes.flex, classes.available];
-        } else if (socialMediaSite.availability === false) {
-          socialMediaSite.className = [classes.flex, classes.unavailable];
+      const websites = [...this.state.websites]
+      websites.map((website) => {
+        if (website.availability === true) {
+          website.className = [classes.flex, classes.available];
+        } else if (website.availability === false) {
+          website.className = [classes.flex, classes.unavailable];
         }
         // conditionally applying classes to each component based on response
-        this.setState({ socialMediaSites: socialMediaSites })
+        this.setState({ websites: websites })
         //setting the state of original datastructure to the altered version that we defined and altered above.
       })
     }
@@ -71,7 +71,7 @@ class LogoContainer extends Component {
 
   render() {
     let imgClass = [classes.flex]
-    for (const key of this.state.socialMediaSites) {
+    for (const key of this.state.websites) {
       // console.log(key.availability);
       if (key.availability === true) {
         imgClass = [classes.flex, classes.available];
@@ -82,8 +82,8 @@ class LogoContainer extends Component {
 
     return (
       <div className={classes.container}>
-        {this.state.socialMediaSites.map((socialMediaSite) => {
-          return <img src={socialMediaSite.tag} key={socialMediaSite.id} className={socialMediaSite.className.join(' ')} />
+        {this.state.websites.map((website) => {
+          return <img src={website.tag} key={website.id} className={website.className.join(' ')} />
         })}
       </div>
     )
