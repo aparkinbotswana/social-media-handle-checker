@@ -10,9 +10,9 @@ class LogoContainer extends Component {
 
   state = {
     websites: [
-      { url: "https://github.com/", availability: null, tag: GithubImage, id: "github", className: [classes.flex] },
-      { url: "https://twitter.com/", availability: null, tag: TwitterImage, id: "twitter", className: [classes.flex] },
-      { url: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "instagram", className: [classes.flex] }
+      { url: "https://github.com/", availability: null, tag: GithubImage, id: "github", className: null },
+      { url: "https://twitter.com/", availability: null, tag: TwitterImage, id: "twitter", className: null },
+      { url: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "instagram", className: null }
     ]
   }
 
@@ -41,9 +41,9 @@ class LogoContainer extends Component {
       const websites = [...this.state.websites]
       websites.map((website) => {
         if (website.availability === true) {
-          website.className = [classes.flex, classes.available];
+          website.className = [classes.available];
         } else if (website.availability === false) {
-          website.className = [classes.flex, classes.unavailable];
+          website.className = [classes.unavailable];
         }
         // conditionally applying classes to each component based on response
         this.setState({ websites: websites })
@@ -71,10 +71,24 @@ class LogoContainer extends Component {
   
 
   render() {
+    // handle username validation for each website
+    // ~`!@#$%^&*()+={}[]\|:;'"<>/?, -.
+    // let githubValidationMessage = null // accepts 39 characters, alphanumeric and - cannot contain consecutive hyphens or begin or end with a hyphen
+    // let twitterValidationMessage = null // accepts 15 characters, alphanumeric and _
+    // let instagramValidationMessage = null // accepts 30 characters, alphanumeric and _ and periods (.)
+
+    // if (this.state.usernameValid === false) {
+    //   invalidMessage = <p className={classes.invalidMessageText}>Please do not include any spaces</p>
+    // } // tweak this to appear below each website
+
     return (
       <div className={classes.container}>
         {this.state.websites.map((website) => {
-          return <img src={website.tag} key={website.id} className={classNames(website.className)} />
+          return (
+            <div className={classes.flex} key={website.id}>
+              <img src={website.tag} className={website.className} />
+            </div>
+          )
         })}
       </div>
     )

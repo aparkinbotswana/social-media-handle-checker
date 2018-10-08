@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 
 const inputField = (props) => {
-  // HANDLE SPACES!!!!!!!!
   return (
     <div className={classes.container}>
         <input className={classes.input} type="text" onChange={props.changed} />

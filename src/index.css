@@ -9,3 +9,12 @@ body {
 h1 {
   text-align: center;
 }
+
+.invalidMessageContainer {
+   padding: 20px 0px;
+}
+
+.invalidMessageText {
+  margin: 0px auto;
+  text-align: center;
+}
