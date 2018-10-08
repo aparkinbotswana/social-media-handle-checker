@@ -70,16 +70,6 @@ class LogoContainer extends Component {
   
 
   render() {
-    let imgClass = [classes.flex]
-    for (const key of this.state.websites) {
-      // console.log(key.availability);
-      if (key.availability === true) {
-        imgClass = [classes.flex, classes.available];
-      } else if (key.availability === false) {
-        imgClass = [classes.flex, classes.unavailable];
-      }
-    }
-
     return (
       <div className={classes.container}>
         {this.state.websites.map((website) => {

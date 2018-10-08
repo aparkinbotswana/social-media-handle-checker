@@ -5,3 +5,17 @@
 .flex {
   flex: 1;
 }
+
+.input{
+  text-align: center;
+  padding: 10px;
+  font-family: 'Lato', sans-serif;
+}
+
+.input:hover {
+  background-color: blueviolet;
+}
+
+.input__button {
+  background-color: aqua;
+}
