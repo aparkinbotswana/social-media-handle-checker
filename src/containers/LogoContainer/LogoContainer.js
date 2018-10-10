@@ -9,6 +9,8 @@ import classNames from 'classnames';
 class LogoContainer extends Component {
 
   state = {
+    submittedUsername: this.props.submittedUsername,
+    newSubmission: false,
     websites: [
       { url: "https://github.com/", availability: null, tag: GithubImage, id: "github", className: null },
       { url: "https://twitter.com/", availability: null, tag: TwitterImage, id: "twitter", className: null },
@@ -46,11 +48,10 @@ class LogoContainer extends Component {
           website.className = [classes.unavailable];
         }
         // conditionally applying classes to each component based on response
-        this.setState({ websites: websites })
+        this.setState({ websites: websites, newSubmission: true })
         //setting the state of original datastructure to the altered version that we defined and altered above.
       })
     }
-
 
     fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`).then(function (response) {
       return response.json(); 
@@ -63,28 +64,30 @@ class LogoContainer extends Component {
 
   componentDidUpdate() {  
     if (this.props.sendRequest) {
+      this.setState({ newSubmission: false })
       this.makeGetRequest(this.props.username)
       this.props.handleGetRequest()
       // executes handleGetRequest again so that state for sendRequest can be set back to false
     }
   }
-  
 
   render() {
+
     let githubValidationMessage = null
     let twitterValidationMessage = null
     let instagramValidationMessage = null
 
-    this.state.websites.map((website) => {
-      if (website.url === "https://github.com/" && website.availability === "Invalid username") {
-        githubValidationMessage = <p className={classes.validationMessage}>{this.props.username} is not a valid username for a Github account.</p>
-      } else if (website.url === "https://twitter.com/" && website.availability === "Invalid username") {
-        twitterValidationMessage = <p className={classes.validationMessage}>{this.props.username} is not a valid username for a Twitter account.</p>
-      } else if (website.url === "https://www.instagram.com/" && website.availability === "Invalid username") {
-        instagramValidationMessage = <p className={classes.validationMessage}>{this.props.username} is not a valid username for an Instagram account.</p>        
-      }
-    })
-
+    if (this.state.newSubmission) {
+      this.state.websites.map((website) => {
+        if (website.url === "https://github.com/" && website.availability === "Invalid username") {
+          githubValidationMessage = <p className={classes.validationMessage}>{this.props.submittedUsername} is not a valid username for a Github account.</p>
+        } else if (website.url === "https://twitter.com/" && website.availability === "Invalid username") {
+          twitterValidationMessage = <p className={classes.validationMessage}>{this.props.submittedUsername} is not a valid username for a Twitter account.</p>
+        } else if (website.url === "https://www.instagram.com/" && website.availability === "Invalid username") {
+          instagramValidationMessage = <p className={classes.validationMessage}>{this.props.submittedUsername} is not a valid username for an Instagram account.</p>        
+        }
+      })
+    }
 
     return (
       <div>

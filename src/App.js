@@ -7,6 +7,7 @@ class App extends Component {
 
   state = {
     username: '',
+    submittedUsername: '',
     usernameValid: true,
     sendRequest: false
   }
@@ -31,6 +32,7 @@ class App extends Component {
     } else {
       this.setState({ sendRequest: true })
     }
+    this.setState({ submittedUsername: this.state.username })
   };
 
   render() {
@@ -49,7 +51,8 @@ class App extends Component {
         <LogoContainer 
           handleGetRequest={this.handleGetRequest} 
           username={this.state.username} 
-          sendRequest={this.state.sendRequest} />
+          sendRequest={this.state.sendRequest}
+          submittedUsername={this.state.submittedUsername} />
       </div>
     )
   }
