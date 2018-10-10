@@ -9,12 +9,11 @@ import classNames from 'classnames';
 class LogoContainer extends Component {
 
   state = {
-    submittedUsername: this.props.submittedUsername,
     newSubmission: false,
     websites: [
-      { url: "https://github.com/", availability: null, tag: GithubImage, id: "github", className: null },
-      { url: "https://twitter.com/", availability: null, tag: TwitterImage, id: "twitter", className: null },
-      { url: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "instagram", className: null }
+      { url: "https://github.com/", availability: null, tag: GithubImage, id: "Github", className: null },
+      { url: "https://twitter.com/", availability: null, tag: TwitterImage, id: "Twitter", className: null },
+      { url: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "Instagram", className: null }
     ]
   }
 
