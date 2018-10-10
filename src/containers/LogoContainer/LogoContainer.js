@@ -71,27 +71,37 @@ class LogoContainer extends Component {
   
 
   render() {
-    // let githubValidationMessage = null
-    // let twitterValidationMessage = null
-    // let instagramValidationMessage = null
-    // this.state.websites.map((website) => {
+    let githubValidationMessage = null
+    let twitterValidationMessage = null
+    let instagramValidationMessage = null
 
-    // })
+    this.state.websites.map((website) => {
+      if (website.url === "https://github.com/" && website.availability === "Invalid username") {
+        githubValidationMessage = <p className={classes.validationMessage}>{this.props.username} is not a valid username for a Github account.</p>
+      } else if (website.url === "https://twitter.com/" && website.availability === "Invalid username") {
+        twitterValidationMessage = <p className={classes.validationMessage}>{this.props.username} is not a valid username for a Twitter account.</p>
+      } else if (website.url === "https://www.instagram.com/" && website.availability === "Invalid username") {
+        instagramValidationMessage = <p className={classes.validationMessage}>{this.props.username} is not a valid username for an Instagram account.</p>        
+      }
+    })
 
-    if (this.state.websites === 'Invalid username') {
-      invalidMessage = <p>{this.props.username} is an invalid username for a Github account. </p>
-    } 
 
     return (
-      <div className={classes.container}>
-        {this.state.websites.map((website) => {
-          return (
-            <div className={classes.flex} key={website.id}>
-              <img src={website.tag} className={classNames(classes.svgImage, website.className)} />
-            </div>
-          )
-        })}
-
+      <div>
+        <div className={classes.container}>
+          {this.state.websites.map((website) => {
+            return (
+              <div className={classes.flex} key={website.id}>
+                <img src={website.tag} className={classNames(classes.svgImage, website.className)} />
+              </div>
+            )
+          })}
+        </div>
+        <div>
+          {githubValidationMessage}
+          {twitterValidationMessage}
+          {instagramValidationMessage}
+        </div>
       </div>
     )
   }

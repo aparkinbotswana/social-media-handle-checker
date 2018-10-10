@@ -1,9 +1,12 @@
+p{
+  font-family: 'Lato', sans-serif;
+}
+
 .container {
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  margin: 0px 30px;
 }
 
 .flex{
@@ -26,4 +29,14 @@
 
 .svgImage {
   margin-bottom: 20px
+}
+
+.validationMessage {
+  text-align: center;
+}
+
+@media (min-width: 769px) {
+  .container {
+    margin: 0px 250px;
+  }
 }
