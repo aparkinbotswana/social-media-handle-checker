@@ -43,7 +43,7 @@ class LogoContainer extends Component {
       websites.map((website) => {
         if (website.availability === true) {
           website.className = [classes.available];
-        } else if (website.availability === false) {
+        } else if (website.availability === false || "Invalid username") {
           website.className = [classes.unavailable];
         }
         // conditionally applying classes to each component based on response
