@@ -2,19 +2,20 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  /* max-width: 600px; */
-  margin: 0px 40px;
+  margin: 0% 20%;
 }
 
 .flex{
-  flex-basis: 20%;
-  border: 1px solid #3a3a3a;
+  flex-basis: 30%;
+  max-width: 200px;
 }
 
 .available {
   background-color: rgb(9, 138, 9);
+  border-radius: 15px;
 }
 
 .unavailable {
   background-color: rgb(189, 14, 14);
+  border-radius: 15px;
 }

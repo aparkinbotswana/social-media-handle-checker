@@ -7,7 +7,7 @@ const inputField = (props) => {
   return (
     <div className={classes.container}>
         <input className={classes.input} type="text" onChange={props.changed} />
-        <input className={classNames(classes.input, classes.input__button)} type="button" value="Submit" onClick={props.handleGetRequest} />
+        <input className={classNames(classes.input, classes.inputButton)} type="button" value="Submit" onClick={props.handleGetRequest} />
     </div>
   )
 }
