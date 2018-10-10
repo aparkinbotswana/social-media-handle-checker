@@ -87,7 +87,7 @@ class LogoContainer extends Component {
         {this.state.websites.map((website) => {
           return (
             <div className={classes.flex} key={website.id}>
-              <img src={website.tag} className={website.className} />
+              <img src={website.tag} className={classNames(classes.svgImage, website.className)} />
             </div>
           )
         })}

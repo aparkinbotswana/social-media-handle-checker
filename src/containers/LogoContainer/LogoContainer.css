@@ -1,21 +1,29 @@
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
-  margin: 0% 20%;
+  margin: 0px 30px;
 }
 
 .flex{
   flex-basis: 30%;
   max-width: 200px;
+  min-width: 100px;
 }
 
 .available {
-  background-color: rgb(9, 138, 9);
+  background-color: #4CBB17;
   border-radius: 15px;
+  border: 1px solid black;
 }
 
 .unavailable {
-  background-color: rgb(189, 14, 14);
+  background-color: #DC143C;
   border-radius: 15px;
+  border: 1px solid black;
+}
+
+.svgImage {
+  margin-bottom: 20px
 }
