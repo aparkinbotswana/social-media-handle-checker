@@ -42,9 +42,14 @@ class App extends Component {
     return (
       <div>
         <h1>Username Checker</h1>
-        <InputField handleGetRequest={this.handleGetRequest} changed={(event) => this.usernameInput(event)}/>  
+        <InputField 
+          handleGetRequest={this.handleGetRequest} 
+          changed={(event) => this.usernameInput(event)} />  
         <div className={classes.invalidMessageContainer}>{invalidMessage}</div>
-        <LogoContainer handleGetRequest={this.handleGetRequest} username={this.state.username} sendRequest={this.state.sendRequest} />
+        <LogoContainer 
+          handleGetRequest={this.handleGetRequest} 
+          username={this.state.username} 
+          sendRequest={this.state.sendRequest} />
       </div>
     )
   }

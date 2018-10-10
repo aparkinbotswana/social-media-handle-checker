@@ -71,25 +71,27 @@ class LogoContainer extends Component {
   
 
   render() {
-    // handle username validation for each website
-    // ~`!@#$%^&*()+={}[]\|:;'"<>/?, -.
-    // let githubValidationMessage = null // accepts 39 characters, alphanumeric and - cannot contain consecutive hyphens or begin or end with a hyphen
-    // let twitterValidationMessage = null // accepts 15 characters, alphanumeric and _
-    // let instagramValidationMessage = null // accepts 30 characters, alphanumeric and _ and periods (.)
+    // let githubValidationMessage = null
+    // let twitterValidationMessage = null
+    // let instagramValidationMessage = null
+    // this.state.websites.map((website) => {
 
-    // if (this.state.usernameValid === false) {
-    //   invalidMessage = <p className={classes.invalidMessageText}>Please do not include any spaces</p>
-    // } // tweak this to appear below each website
+    // })
+
+    if (this.state.websites === 'Invalid username') {
+      invalidMessage = <p>{this.props.username} is an invalid username for a Github account. </p>
+    } 
 
     return (
       <div className={classes.container}>
         {this.state.websites.map((website) => {
           return (
             <div className={classes.flex} key={website.id}>
-              <img src={website.tag} className={website.className} />
+              <img src={website.tag} className={classes["this__that--wow"]} />
             </div>
           )
         })}
+
       </div>
     )
   }
