@@ -10,6 +10,11 @@ h1 {
   text-align: center;
 }
 
+.introText {
+  text-align: center;
+  margin: 16px 20px;
+}
+
 .invalidMessageContainer {
    height: 40px;
 }
@@ -17,4 +22,10 @@ h1 {
 .invalidMessageText {
   margin: 0px auto;
   text-align: center;
+}
+
+@media (min-width: 769px) {
+  .introText {
+    margin: 16px 40px;
+  }
 }

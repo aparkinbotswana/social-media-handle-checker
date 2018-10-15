@@ -44,6 +44,7 @@ class App extends Component {
     return (
       <div>
         <h1>Username Checker</h1>
+        <p className={classes.introText}>Want a particular username for website? Curious to know if it exists? Just type it into the input field and click "Check!". The logos will change colour depending on their availability across websites. Still a work in progress, but perfectly usable.</p>
         <InputField 
           handleGetRequest={this.handleGetRequest} 
           changed={(event) => this.usernameInput(event)} />  
