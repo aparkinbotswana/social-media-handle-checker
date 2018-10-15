@@ -44,7 +44,7 @@ class App extends Component {
     return (
       <div>
         <h1>Username Checker</h1>
-        <p className={classes.introText}>Want a particular username for website? Curious to know if it exists? Just type it into the input field and click "Check!". The logos will change colour depending on their availability across websites. Still a work in progress, but perfectly usable.</p>
+        <p className={classes.introText}>Want a particular username for website? Curious to know if it exists? Just type it into the input field and click "Check!". The logos will change colour depending on their availability across websites. Still a work in progress, but perfectly usable. The server that makes the requests is currently using Heroku, so it may take a short while for the first request to process.</p>
         <InputField 
           handleGetRequest={this.handleGetRequest} 
           changed={(event) => this.usernameInput(event)} />  
