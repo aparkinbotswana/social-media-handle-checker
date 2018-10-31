@@ -33,6 +33,7 @@ p{
 
 .validationMessage {
   text-align: center;
+  height: 20px;
 }
 
 @media (min-width: 769px) {

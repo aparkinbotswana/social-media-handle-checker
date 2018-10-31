@@ -14,14 +14,38 @@ class LogoContainer extends Component {
       { url: "https://github.com/", availability: null, tag: GithubImage, id: "Github", className: null },
       { url: "https://twitter.com/", availability: null, tag: TwitterImage, id: "Twitter", className: null },
       { url: "https://www.instagram.com/", availability: null, tag: InstagramImage, id: "Instagram", className: null }
-    ]
+    ],
+    serverResponse: {}
+  };
+
+  checkUsernameValidity( url ){
+    if (!(url in this.state.serverResponse)) {
+      return;
+    }
+    return this.state.serverResponse[url]; // print the error string (or true/false which prints as nothing)
   }
 
+  getLogoClass( url ){
+    if( !(url in this.state.serverResponse) ){
+      // if the key is not defined, it means we don't even have a response from
+      // the server yet, so return an empty class
+      return '';
+    }
+
+    if( this.state.serverResponse[url] === true ){
+      return classes.available;
+    } else {
+      return classes.unavailable;
+    }
+  }
 
   makeGetRequest = (username) => {
 
     const updateAvailability = (myJson) => {
-      const websites = [...this.state.websites]
+      const websites = [...this.state.websites];
+
+      // const website = {...this.state.websites};
+
       // creating copy of array so we can alter it as need be. 
       websites.map((website) => {
         // iterate through every object in the array so we can update the key/value pairs based on response from server
@@ -32,15 +56,19 @@ class LogoContainer extends Component {
               website.availability = myJson[myJsonKey];
             }
           }
-          this.setState({ websites: websites })
-          //setting the state of original datastructure to the altered version that we defined and altered above.
         }
-      })
+      });
+      //setting the state of original datastructure to the altered version that we defined and altered above.
+      this.setState({ websites: websites });
+      console.log('RETURN from updateAvailability()')
+      return 'getfucked';
+      
     }
 
     const updateClass = () => {
+      console.warn('HELLO?!!! from updateClass()', this.state.websites);
       const websites = [...this.state.websites]
-      websites.map((website) => {
+      websites.forEach((website) => {
         if (website.availability === true) {
           website.className = [classes.available];
         } else if (website.availability === false || "Invalid username") {
@@ -49,16 +77,13 @@ class LogoContainer extends Component {
         // conditionally applying classes to each component based on response
         this.setState({ websites: websites, newSubmission: true })
         //setting the state of original datastructure to the altered version that we defined and altered above.
-      })
+      });
     }
 
-    fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`).then(function (response) {
-      return response.json(); 
-    }).then(function (myJson) { 
-      return updateAvailability(myJson) 
-    }).then(function () {
-      return updateClass()
-    })
+    fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`)
+    .then( response => response.json() )
+    .then( myJson => { this.setState({ serverResponse: myJson}); } );
+ 
   }
 
   componentDidUpdate() {  
@@ -72,41 +97,23 @@ class LogoContainer extends Component {
 
   render() {
 
-    let githubValidationMessage = null
-    let twitterValidationMessage = null
-    let instagramValidationMessage = null
-
-    if (this.state.newSubmission) {
-      this.state.websites.map((website) => {
-        if (website.url === "https://github.com/" && website.availability === "Invalid username") {
-          githubValidationMessage = <p className={classes.validationMessage}>{this.props.submittedUsername} is not a valid username for a Github account.</p>
-        } else if (website.url === "https://twitter.com/" && website.availability === "Invalid username") {
-          twitterValidationMessage = <p className={classes.validationMessage}>{this.props.submittedUsername} is not a valid username for a Twitter account.</p>
-        } else if (website.url === "https://www.instagram.com/" && website.availability === "Invalid username") {
-          instagramValidationMessage = <p className={classes.validationMessage}>{this.props.submittedUsername} is not a valid username for an Instagram account.</p>        
-        }
-      })
-    }
-
     return (
-      <div>
-        <div className={classes.container}>
-          {this.state.websites.map((website) => {
-            return (
-              <div className={classes.flex} key={website.id}>
-                <img src={website.tag} className={classNames(classes.svgImage, website.className)} />
+      <div className={classes.container}>
+        {this.state.websites.map((website) => {
+          return (
+            <div className={classes.flex} key={website.id}>
+              <div>
+                <img src={website.tag} className={classNames( classes.svgImage, this.getLogoClass(website.url) )} />
               </div>
-            )
-          })}
-        </div>
-        <div>
-          {githubValidationMessage}
-          {twitterValidationMessage}
-          {instagramValidationMessage}
-        </div>
+              <div className={classes.validationMessage} >
+                {this.checkUsernameValidity(website.url)}
+              </div>
+            </div>
+          )
+        })}
       </div>
     )
   }
 }
 
-export default LogoContainer
+export default LogoContainer;
