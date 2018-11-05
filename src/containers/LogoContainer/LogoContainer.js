@@ -31,7 +31,6 @@ class LogoContainer extends Component {
       // the server yet, so return an empty class
       return '';
     }
-
     if( this.state.serverResponse[url] === true ){
       return classes.available;
     } else {
@@ -40,50 +39,9 @@ class LogoContainer extends Component {
   }
 
   makeGetRequest = (username) => {
-
-    const updateAvailability = (myJson) => {
-      const websites = [...this.state.websites];
-
-      // const website = {...this.state.websites};
-
-      // creating copy of array so we can alter it as need be. 
-      websites.map((website) => {
-        // iterate through every object in the array so we can update the key/value pairs based on response from server
-        for (const key in website) {
-          for (const myJsonKey in myJson) {
-            if (myJsonKey === website[key]) {
-              // iterating through key value pair and checking to see if it is the correct key so the correct value is updated
-              website.availability = myJson[myJsonKey];
-            }
-          }
-        }
-      });
-      //setting the state of original datastructure to the altered version that we defined and altered above.
-      this.setState({ websites: websites });
-      console.log('RETURN from updateAvailability()')
-      return 'getfucked';
-      
-    }
-
-    const updateClass = () => {
-      console.warn('HELLO?!!! from updateClass()', this.state.websites);
-      const websites = [...this.state.websites]
-      websites.forEach((website) => {
-        if (website.availability === true) {
-          website.className = [classes.available];
-        } else if (website.availability === false || "Invalid username") {
-          website.className = [classes.unavailable];
-        }
-        // conditionally applying classes to each component based on response
-        this.setState({ websites: websites, newSubmission: true })
-        //setting the state of original datastructure to the altered version that we defined and altered above.
-      });
-    }
-
     fetch(`https://aqueous-ocean-13621.herokuapp.com/?u=${username}`)
     .then( response => response.json() )
     .then( myJson => { this.setState({ serverResponse: myJson}); } );
- 
   }
 
   componentDidUpdate() {  
@@ -96,7 +54,6 @@ class LogoContainer extends Component {
   }
 
   render() {
-
     return (
       <div className={classes.container}>
         {this.state.websites.map((website) => {
