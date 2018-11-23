@@ -17,9 +17,7 @@ const inputField = (props) => {
     <div className={classes.container}>
         <input className={classes.input} type="text" onChange={props.changed} />
         <input className={classNames(classes.input, classes.inputButton)} type="button" value="Check!" onClick={props.handleGetRequest} />
-        <div className={visibility}>
-          <img src={LoadingImage} />
-        </div>
+        <img src={LoadingImage} className={visibility} />
     </div>
   )
 }

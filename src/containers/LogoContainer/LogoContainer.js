@@ -43,14 +43,12 @@ class LogoContainer extends Component {
     .then( response => response.json() )
     .then( myJson => { 
       this.setState({ serverResponse: myJson});
-      console.log(this.props);
       this.props.updateLoadingAnimation()
     } );
   }
 
   componentDidUpdate() {  
     if (this.props.sendRequest) {
-      console.log(this.props);
       this.setState({ newSubmission: false })
       this.makeGetRequest(this.props.username)
       this.props.handleGetRequest()

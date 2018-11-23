@@ -24,8 +24,9 @@ class App extends Component {
   };
 
   handleGetRequest = () => {
-    if (this.state.usernameValid === false) {
+    if (this.state.usernameValid === false || this.state.username === "") {
     // testing for invalid characters. Prevent fetch request if detected
+    // Also prevent request if the field is empty and check button pressed.
       return
     }
     if (this.state.sendRequest) {
