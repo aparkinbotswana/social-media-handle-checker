@@ -9,7 +9,8 @@ class App extends Component {
     username: '',
     submittedUsername: '',
     usernameValid: true,
-    sendRequest: false
+    sendRequest: false,
+    showLoadingAnimation: false
   }
 
   usernameInput = (event) => {
@@ -30,9 +31,16 @@ class App extends Component {
     if (this.state.sendRequest) {
       this.setState({ sendRequest: false })
     } else {
-      this.setState({ sendRequest: true })
+      this.setState({ 
+        sendRequest: true,
+        showLoadingAnimation: true
+      })
     }
     this.setState({ submittedUsername: this.state.username })
+  };
+
+  updateLoadingAnimation = () => {
+    this.setState({ showLoadingAnimation: false})
   };
 
   render() {
@@ -47,13 +55,15 @@ class App extends Component {
         <p className={classes.introText}>Want a particular username for website? Curious to know if it exists? Just type it into the input field and click "Check!". The logos will change colour depending on their availability across websites. Still a work in progress, but perfectly usable. The server that makes the requests is currently using Heroku, so it may take a short while for the first request to process.</p>
         <InputField 
           handleGetRequest={this.handleGetRequest} 
-          changed={(event) => this.usernameInput(event)} />  
+          changed={(event) => this.usernameInput(event)}
+          showLoadingAnimation={this.state.showLoadingAnimation} />  
         <div className={classes.invalidMessageContainer}>{invalidMessage}</div>
         <LogoContainer 
           handleGetRequest={this.handleGetRequest} 
           username={this.state.username} 
           sendRequest={this.state.sendRequest}
-          submittedUsername={this.state.submittedUsername} />
+          submittedUsername={this.state.submittedUsername}
+          updateLoadingAnimation={this.updateLoadingAnimation} />
       </div>
     )
   }
