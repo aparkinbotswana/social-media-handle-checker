@@ -1,6 +1,10 @@
 .container {
-  margin-bottom: 10px;
-  text-align: center;
+  display: flex;
+}
+
+.input_component_container {
+  width: 200px;
+  margin: 0 auto;
 }
 
 .input{
@@ -10,9 +14,8 @@
   border-color: #1f1f1f;
   text-align: center;
   padding: 10px 15px;
-  margin-right: 10px;
-  margin-bottom: 10px;
   transition: 300ms border-color;
+  margin-bottom: 10px;
 }
 
 .input:hover {
@@ -25,6 +28,8 @@
 
 .inputButton {
   cursor: pointer;
+  margin-right: 20px;
+  flex: 1;
 }
 
 .loading {
@@ -33,9 +38,11 @@
 }
 
 .not_visibile{
-  visibility: hidden;
+  display: none;
 }
 
-.visibile{
-  visibility: visible;
+.loading_animation {
+  height: 40px;
+  width: 40px;
+  flex: 1;
 }

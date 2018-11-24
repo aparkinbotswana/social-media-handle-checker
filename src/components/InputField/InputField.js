@@ -8,16 +8,22 @@ const inputField = (props) => {
 
     let visibility = null
     if (props.showLoadingAnimation) {
-      visibility = classes.visibile
+      visibility = null
     } else {
       visibility = classes.not_visibile
     }
 
   return (
-    <div className={classes.container}>
+    <div className={classes.input_component_container}>
         <input className={classes.input} type="text" onChange={props.changed} />
-        <input className={classNames(classes.input, classes.inputButton)} type="button" value="Check!" onClick={props.handleGetRequest} />
-        <img src={LoadingImage} className={visibility} />
+      <div className={classes.container}>
+        <div>
+            <input className={classNames(classes.input, classes.inputButton)} type="button" value="Check!" onClick={props.handleGetRequest} />
+        </div>
+        <div>
+          <img src={LoadingImage} className={classNames(classes.loading_animation, visibility)} />
+        </div>
+      </div>
     </div>
   )
 }
